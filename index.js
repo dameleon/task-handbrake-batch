@@ -74,7 +74,7 @@ function remove(file) {
 function convert(file, callback) {
     console.log('\n===============================================');
 
-    var outputFilePath = path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length));
+    var outputFilePath = path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length)).replace(/\.ts$/, '.mp4');
     var cliOptions = makeOption({
             '-i': file,
             '-o': outputFilePath
