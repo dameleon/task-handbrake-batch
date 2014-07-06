@@ -74,9 +74,10 @@ function remove(file) {
 function convert(file, callback) {
     console.log('\n===============================================');
 
+    var outputFilePath = path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length));
     var cliOptions = makeOption({
             '-i': file,
-            '-o': path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length))
+            '-o': outputFilePath
     });
 
     console.log('exec: ', setting.handbrake_cli_path, cliOptions.join(' '))
@@ -84,19 +85,42 @@ function convert(file, callback) {
         callback && callback(0, file);
         next();
         return;
-    } else if (!fs.existsSync(path.dirname(cliOptions['-o']))) {
-        fs.mkdirSync(path.dirname(cliOptions['-o']));
+    } else if (!fs.existsSync(path.dirname(outputFilePath))) {
+        fs.mkdirSync(path.dirname(outputFilePath));
     }
     var handbrake = child_process.spawn(setting.handbrake_cli_path, cliOptions);
+    var stdoutBuf = new Buffer(0);
+    var stderrBuf = new Buffer(0);
 
-    handbrake.stdout.on('data', function(data) {
-        console.log(data.toString('utf8'));
+    handbrake.stdout.on('readable', function() {
+        var chunk;
+
+        while (chunk = handbrake.stdout.read()) {
+            stdoutBuf = Buffer.concat([
+                stdoutBuf,
+                chunk
+            ], stdoutBuf.length + chunk.length);
+        }
+    })
+    handbrake.stdout.on('end', function() {
+        if (stdoutBuf.length) {
+            console.log(stdoutBuf.toString('utf8'));
+        }
     });
-    handbrake.stderr.on('data', function(data) {
-        console.error(data.toString('utf8'));
-    });
+    handbrake.stderr.on('readable', function() {
+        var chunk;
+
+        while (chunk = handbrake.stderr.read()) {
+            stderrBuf = Buffer.concat([
+                stderrBuf,
+                chunk
+            ], stderrBuf.length + chunk.length);
+        }
+    })
     handbrake.stderr.on('end', function() {
-        console.error('handbrake is error.');
+        if (stderrBuf.length) {
+            console.log(stderrBuf.toString('utf8'));
+        }
     });
     handbrake.on('close', function(code) {
         console.log('handbrake exit.', arguments);
