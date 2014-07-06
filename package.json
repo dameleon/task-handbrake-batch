@@ -1,0 +1,25 @@
+{
+  "name": "task-handbrake-batch",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dameleon/task-handbrake-batch.git"
+  },
+  "author": "dameleon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dameleon/task-handbrake-batch/issues"
+  },
+  "homepage": "https://github.com/dameleon/task-handbrake-batch",
+  "private": true,
+  "dependencies": {
+    "js-yaml": "^3.0.2",
+    "lodash": "^2.4.1",
+    "recursive-readdir": "^1.1.2"
+  }
+}

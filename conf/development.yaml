@@ -1,0 +1,15 @@
+src_dir: ''
+output_dir: ''
+handbrake_cli_path: '/path/to/handbrake'
+handbrake_options:
+  '--input': ''
+  '--output': ''
+  '--format': 'MP4'
+  '--encoder': 'x264'
+  '--x264-preset': 'medium'
+  '--x264-tune': 'animation'
+  '--h264-level': 4.1
+  '--vfr': ''
+  '--opencl-support': ''
+  '-ab': 256
+  '--arate': 48
