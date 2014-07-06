@@ -2,12 +2,24 @@ src_dir: ''
 output_dir: ''
 handbrake_cli_path: '/path/to/handbrake'
 handbrake_options:
-  '--input': ''
-  '--output': ''
-  '--encoder': 'x264'
-  '--x264-preset': 'medium'
-  '--x264-tune': 'animation'
-  '--h264-level': 4.1
+  '-i': ''
+  '-o': ''
+  '-f': mp4
+  '-e' x264
+  '--x264-preset': medium
+  '--x264-tune': animation
+  '--h264-profile': high
+  '--h264-level': "4.1"
+  '-q': 21
+  '-r': auto
   '--vfr': ''
-  '-ab': 256
-  '--arate': 48
+  '-a': 1
+  '-E': fdk_aac
+  '-B': 256
+  '-6': auto
+  '-R': auto
+  '-w': 1280
+  '-l': 720
+  '--crop': 0:0:0:0
+  '--decomb': ''
+  '--detelecine': ''

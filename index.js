@@ -75,8 +75,8 @@ function convert(file, callback) {
     console.log('\n===============================================');
 
     var cliOptions = makeOption({
-            '--input': file,
-            '--output': path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length))
+            '--i': file,
+            '--o': path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length))
     });
 
     console.log('exec: ', setting.handbrake_cli_path, cliOptions.join(' '))
@@ -85,7 +85,7 @@ function convert(file, callback) {
         next();
         return;
     } else {
-        fs.mkdirSync(path.dirname(cliOptions['--output']));
+        fs.mkdirSync(path.dirname(cliOptions['-o']));
     }
     var handbrake = child_process.spawn(setting.handbrake_cli_path, cliOptions);
 
