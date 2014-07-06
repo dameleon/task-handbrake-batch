@@ -110,8 +110,16 @@ function makeOption(options) {
     var res = [];
 
     _.each(opts, function(val, key) {
-        res.push(key);
-        val && res.push(val);
+        if (/^--/.test(key)) {
+            if (!val) {
+                res.push(key)
+            } else {
+                res.push(key + '=' + val);
+            }
+        } else {
+            res.push(key);
+            val && res.push(val);
+        }
     });
     return res;
 }
