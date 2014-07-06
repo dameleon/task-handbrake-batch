@@ -51,7 +51,7 @@ function next() {
         console.log('\n===============================================');
         console.timeEnd('ts2mp4');
         console.log('Complete!');
-        process.exit(1);
+        process.exit(0);
     }
     convert(targetFile, function(code, file) {
         if (code != 0) {
@@ -68,6 +68,7 @@ function remove(file) {
     } else if (!isProduction) {
         return;
     }
+    console.log('unlink: ' + file);
     fs.unlinkSync(file)
 }
 
