@@ -54,7 +54,7 @@ function next() {
         process.exit(1);
     }
     convert(targetFile, function(code, file) {
-        if (code !== 0) {
+        if (code != 0) {
             return;
         }
         remove(file);
@@ -64,11 +64,11 @@ function next() {
 function remove(file) {
     if (isDryrun) {
         console.log('unlink: ' + file);
-    } else if (fs.unlinkSync(file)) {
-        console.log('unlink: ' + file);
-    } else {
-        console.error('cannot delete: ' + file);
+        return;
+    } else if (!isProduction) {
+        return;
     }
+    fs.unlinkSync(file)
 }
 
 function convert(file, callback) {
@@ -84,14 +84,16 @@ function convert(file, callback) {
         callback && callback(0, file);
         next();
         return;
+    } else {
+        fs.mkdirSync(path.dirname(cliOptions['--output']));
     }
     var handbrake = child_process.spawn(setting.handbrake_cli_path, cliOptions);
 
     handbrake.stdout.on('data', function(data) {
-        console.log(data);
+        console.log(data.toString('utf8'));
     });
     handbrake.stderr.on('data', function(data) {
-        console.error(data);
+        console.error(data.toString('utf8'));
     });
     handbrake.stderr.on('end', function() {
         console.error('handbrake is error.');
