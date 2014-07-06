@@ -5,7 +5,7 @@ handbrake_options:
   '-i': ''
   '-o': ''
   '-f': mp4
-  '-e' x264
+  '-e': x264
   '--x264-preset': medium
   '--x264-tune': animation
   '--h264-profile': high

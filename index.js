@@ -75,8 +75,8 @@ function convert(file, callback) {
     console.log('\n===============================================');
 
     var cliOptions = makeOption({
-            '--i': file,
-            '--o': path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length))
+            '-i': file,
+            '-o': path.join(setting.output_dir, file.substr(setting.src_dir.length + path.sep.length))
     });
 
     console.log('exec: ', setting.handbrake_cli_path, cliOptions.join(' '))
@@ -84,7 +84,7 @@ function convert(file, callback) {
         callback && callback(0, file);
         next();
         return;
-    } else {
+    } else if (!fs.existsSync(path.dirname(cliOptions['-o']))) {
         fs.mkdirSync(path.dirname(cliOptions['-o']));
     }
     var handbrake = child_process.spawn(setting.handbrake_cli_path, cliOptions);
