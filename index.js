@@ -3,6 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var yaml = require('js-yaml');
 var recursive = require('recursive-readdir');
+var mkdirp = require('mkdirp');
 var _ = require('lodash');
 
 var isProduction = process.argv.some(function(option) {
@@ -87,7 +88,7 @@ function convert(file, callback) {
         next();
         return;
     } else if (!fs.existsSync(path.dirname(outputFilePath))) {
-        fs.mkdirSync(path.dirname(outputFilePath));
+        mkdirp.sync(path.dirname(outputFilePath));
     }
     var handbrake = child_process.spawn(setting.handbrake_cli_path, cliOptions);
     var stdoutBuf = new Buffer(0);
