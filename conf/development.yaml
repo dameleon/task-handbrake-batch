@@ -1,6 +1,6 @@
-src_dir: ''
-output_dir: ''
-handbrake_cli_path: '/path/to/handbrake'
+src_dir: 'D:\Videos\raw'
+output_dir: 'D:\Videos\TV'
+handbrake_cli_path: 'C:\Program Files\Handbrake\HandBrakeCLI.exe'
 handbrake_options:
   '-i': ''
   '-o': ''
@@ -23,3 +23,4 @@ handbrake_options:
   '--crop': 0:0:0:0
   '--decomb': ''
   '--detelecine': ''
+  '-P': ''
